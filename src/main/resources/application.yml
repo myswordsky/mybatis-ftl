@@ -1,0 +1,42 @@
+server:
+  port: 8083
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: qwert123456
+    ##  Hikari 连接池配置 ------ 详细配置请访问：https://github.com/brettwooldridge/HikariCP
+    hikari:
+      ## 最小空闲连接数量
+      minimum-idle: 5
+    ## 空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 180000
+    ## 连接池最大连接数，默认是10
+      maximum-pool-size: 30
+    ## 此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+    ## 连接池母子
+      pool-name: MyHikariCP
+    ## 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 1800000
+    ## 数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+  servlet:
+    multipart:
+      #限制上传文件的最大限制为15MB
+      max-file-size: 15MB
+
+mybatis:
+  type-aliases-package: cn.xzb.upload.demo.entity
+  mapper-locations: mybatis/*Mapper.xml
+
+#日志配置  使用额外文件是没有颜色的
+logging:
+  level:
+    root: info
+  file:
+    name: log/server.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: log/server_%d{yyyy-MM-dd}.log
